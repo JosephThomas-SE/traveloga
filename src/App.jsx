@@ -31,10 +31,10 @@ const App = () => {
               {/* Private/Protected Routes */}
               <Route path="/admin" element={<PrivateRoute element={<AdminDashboard />} />} />
               <Route path="/host" element={<PrivateRoute element={<HostPage />} />} />
-              <Route path="/resorts" element={<PrivateRoute element={<ResortList />} />} />
-              <Route path="/restaurants" element={<PrivateRoute element={<RestaurantsList />} />} />
-              <Route path="/places" element={<PrivateRoute element={<PlacesList />} />} />
-              <Route path="/jeepsafari" element={<PrivateRoute element={<JeepSafariList />} />} />
+              <Route path="/resorts" element={<ResortList />} />
+              <Route path="/restaurants" element={<RestaurantsList />} />
+              <Route path="/places" element={<PlacesList />} />
+              <Route path="/jeepsafari" element={<JeepSafariList />} />
 
               {/* Redirect all unknown routes to home */}
               <Route path="*" element={<Navigate to="/" />} />
