@@ -1,0 +1,158 @@
+/* Sidebar styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 14%; /* Constant width of 5.5% */
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+  background: #9ea7b1;
+  transform: translateX(-100%); /* Initially hidden off-screen */
+}
+
+.sidebar.open {
+  transform: translateX(0); /* Sidebar slides in when open */
+}
+
+.sidebar-toggle {
+  position: fixed;
+  top: 20px; /* Adjust as needed */
+  left: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.sidebar-toggle img {
+  width: 40px; /* Adjust based on your design */
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: start;
+  padding-top: 60px;
+  padding-left: 30px;
+}
+
+.sidebar-logo {
+  width: 30px; /* Adjust based on your design */
+}
+
+.sidebar-title {
+  font-size: medium;
+  margin: 0;
+}
+
+.sidebar-nav {
+  font-size: medium;
+  list-style-type: none;
+  padding: 10px;
+  margin-top: 30px;
+}
+
+.sidebar-item {
+  margin-top: 15px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 8px;
+}
+
+.sidebar-link {
+  text-decoration: none;
+  color: #333;
+}
+
+.sidebar-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  background: #e9ecef;
+}
+
+/* Main content */
+main {
+  margin-left: 150px;
+  transition: margin-left 0.3s;
+}
+
+.sidebar.open ~ main {
+  margin-left: 150px;
+}
+
+
+/* <--------------------------------------------------------------------> */
+/* Home Styles */
+.home-container {
+  padding: 10px;
+  margin-left: 0px;
+  transition: margin-left 0.3s;
+}
+
+.home-container.sidebar-open {
+  padding-left: 0%; /* Adjust based on sidebar state */
+}
+
+.welcome-message {
+  text-align: center;
+  padding: 10px;
+  margin-left: 0;
+}
+.welcome-message h1 {
+  text-align: center;
+  padding: 10px;
+  margin-left: 0;
+}
+
+.resort-list {
+  margin-top: 40px;
+}
+
+.resort-list h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.card {
+  margin-bottom: 30px;
+}
+
+
+
+/* mobile styles */
+
+/* Sidebar as a dropdown for mobile devices */
+@media (max-width: 450px) {
+
+  .sidebar {
+    position: fixed;
+    top: -100%;
+    width: 100%;
+    height: auto;
+    transition: top 0.3s ease-in-out;
+    z-index: 1000;
+    background: #9ea7b1;
+  }
+
+  .sidebar.open {
+    top: 0;
+  }
+
+  .sidebar-toggle {
+    position: fixed;
+    top: 20px;
+    left: 0;
+  }
+
+  main {
+    margin-top: 50px;
+  }
+
+  .home-container {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
