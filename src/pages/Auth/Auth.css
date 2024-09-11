@@ -1,0 +1,70 @@
+/* src/pages/Auth/Auth.css */
+
+/* <----------------------------------------------> */
+/* register styles */
+.auth-form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 2rem;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .auth-form-container h2 {
+    color: #333;
+  }
+  
+  .auth-form-container .form-label {
+    font-weight: 500;
+  }
+  
+  .auth-form-container .form-control {
+    border-radius: 5px;
+  }
+  
+  .auth-form-container .btn {
+    background-color: #007bff;
+    border: none;
+  }
+  
+  .auth-form-container .btn:hover {
+    background-color: #0056b3;
+  }
+  
+/* <----------------------------------------------> */
+/* login styles */
+.login-container {
+  max-width: 200px;
+  margin: auto;
+  padding: 2rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.auth-form-container h2 {
+  color: #333;
+}
+
+.auth-form-container .form-label {
+  font-weight: 500;
+}
+
+.auth-form-container .form-control {
+  border-radius: 5px;
+}
+
+.auth-form-container .btn {
+  background-color: #007bff;
+  border: none;
+}
+
+.auth-form-container .btn:hover {
+  background-color: #0056b3;
+}
