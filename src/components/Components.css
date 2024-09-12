@@ -3,17 +3,18 @@
   position: fixed;
   top: 0;
   left: 0;
-  height: 100vh;
-  width: 14%; /* Constant width of 5.5% */
+  height: 100%;
+  width: 14%;
   overflow: hidden;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, width 0.3s ease;
   z-index: 1000;
-  background: #9ea7b1;
+  background: #7e7a7a;
   transform: translateX(-100%); /* Initially hidden off-screen */
 }
 
 .sidebar.open {
   transform: translateX(0); /* Sidebar slides in when open */
+  width: 14%;
 }
 
 .sidebar-toggle {
@@ -24,6 +25,7 @@
   border: none;
   cursor: pointer;
   z-index: 1100;
+  transition: transform 0.3s ease;
 }
 
 .sidebar-toggle img {
@@ -32,9 +34,10 @@
 
 .sidebar-header {
   display: flex;
-  justify-content: start;
-  padding-top: 60px;
-  padding-left: 30px;
+  justify-content: end;
+  gap: 30px;
+  padding-top: 25px;
+  padding-right: 25px;
 }
 
 .sidebar-logo {
@@ -50,65 +53,98 @@
   font-size: medium;
   list-style-type: none;
   padding: 10px;
-  margin-top: 30px;
+  margin-top: 50px;
 }
 
 .sidebar-item {
+  text-align: center;
   margin-top: 15px;
   padding: 10px;
-  border: 1px solid black;
+  background-color: #333;
+  border: 1px solid rgb(255, 255, 255);
   border-radius: 8px;
 }
 
 .sidebar-link {
   text-decoration: none;
-  color: #333;
+  color: #ffffff;
 }
 
 .sidebar-footer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
   position: absolute;
   bottom: 0;
   width: 100%;
   padding: 10px;
-  background: #e9ecef;
 }
 
-/* Main content */
-main {
-  margin-left: 150px;
-  transition: margin-left 0.3s;
-}
-
-.sidebar.open ~ main {
-  margin-left: 150px;
+.sidebar-auth-link {
+  text-decoration: none;
+  color: #ffffff;
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #333;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 8px;
 }
 
 
 /* <--------------------------------------------------------------------> */
 /* Home Styles */
 .home-container {
-  padding: 10px;
-  margin-left: 0px;
-  transition: margin-left 0.3s;
+  height: 100vh; /* Full viewport height */
+  padding-left: 10px;
+  margin-left: 0;
+  color: #fff;
 }
+
+.home-container::before {
+  content: '';
+  position: fixed; /* Use fixed positioning to cover the whole screen */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets//images/background_1.jpg'); /* Image path */
+  background-size: cover;
+  background-position: center;
+  opacity: 1; /* Adjust opacity */
+  z-index: -1; /* Ensure it is behind the content */
+}
+
+
+.container {
+  position: relative;
+  z-index: 1;
+}
+
 
 .home-container.sidebar-open {
-  padding-left: 0%; /* Adjust based on sidebar state */
+  margin-left: 14%;
 }
 
-.welcome-message {
+.welcome-message h1, .welcome-message h4, .welcome-message p {
   text-align: center;
-  padding: 10px;
   margin-left: 0;
-}
-.welcome-message h1 {
-  text-align: center;
   padding: 10px;
-  margin-left: 0;
 }
 
 .resort-list {
   margin-top: 40px;
+}
+
+.resort-list .card{
+  height: 200px; /* Adjust as needed */
+}
+
+.resort-list .card::before{
+  background-size: cover;
+  background-position: center;
+  opacity: 0.3; /* Adjust opacity */
+  z-index: -1; /* Ensure it is behind the content */
+  height: 200px; /* Adjust as needed */
 }
 
 .resort-list h2 {
@@ -116,12 +152,66 @@ main {
   margin-bottom: 20px;
 }
 
+
+/* <------------------------------------------------------------------------------> */
+/* reusable card styles */
+
+/* Styles for ReusableCard */
 .card {
   margin-bottom: 30px;
+  position: relative;
+  z-index: 1;
+}
+
+.hover-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.hover-card .card-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  transition: opacity 0.3s ease;
+}
+
+.card-description {
+  display: none;
+}
+
+.hover-card .card-description {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 15px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.hover-card:hover .card-description {
+  opacity: 1;
+}
+
+.hover-card:hover {
+  transform: scale(1.02);
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+.card-content {
+  min-height: 50px; /* Adjust to control the height of the description area */
 }
 
 
 
+/* <----------------------------------------------------------------------------> */
 /* mobile styles */
 
 /* Sidebar as a dropdown for mobile devices */
