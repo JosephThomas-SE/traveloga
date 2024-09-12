@@ -12,7 +12,7 @@
 /build
 .env
 project-specifics.txt
-FileStructure.txt
+file-structure.txt
 
 # misc
 .DS_Store
