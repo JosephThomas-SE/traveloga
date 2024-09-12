@@ -11,6 +11,8 @@
 # production
 /build
 .env
+project-specifics.txt
+FileStructure.txt
 
 # misc
 .DS_Store
