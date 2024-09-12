@@ -2,8 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../pages/Auth/contexts/AuthContext';
 import { Button } from 'react-bootstrap';
-import menubar from '../assets/icons/menu-bar.png';
-import logo from '../assets/images/flyer.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars as solidBars } from '@fortawesome/free-solid-svg-icons';
 import './Components.css';
 
 const Sidebar = () => {
@@ -11,7 +11,6 @@ const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
-  console.log(currentUser);
   const handleLogout = async () => {
     try {
       await logout();
@@ -28,15 +27,14 @@ const Sidebar = () => {
     setIsMobile(window.innerWidth < 768);
   };
 
-  // Using useCallback to memoize the closeSidebar function
   const closeSidebar = useCallback((e) => {
     const sidebar = document.querySelector('.sidebar');
     const toggleButton = document.querySelector('.sidebar-toggle');
 
     if (
       isSidebarOpen &&
-      !sidebar.contains(e.target) && // Click is outside sidebar
-      !toggleButton.contains(e.target) // Click is outside toggle button
+      !sidebar.contains(e.target) && 
+      !toggleButton.contains(e.target)
     ) {
       setIsSidebarOpen(false);
     }
@@ -55,11 +53,6 @@ const Sidebar = () => {
   return (
     <>
       <div className={`sidebar ${isSidebarOpen ? 'open' : ''} ${isMobile ? 'mobile' : ''}`}>
-        <div className="sidebar-header">
-          <img src={logo} alt="Traveloga Logo" className="sidebar-logo" />
-          <h3 className="sidebar-title">TRAVELOGA</h3>
-        </div>
-
         <ul className="sidebar-nav">
           <li className="sidebar-item">
             <Link to="/" className="sidebar-link">Home</Link>
@@ -86,15 +79,25 @@ const Sidebar = () => {
             </>
           ) : (
             <>
-              <Link to="/login" className="btn btn-outline-primary w-100 mb-2">Login</Link>
-              <Link to="/register" className="btn btn-outline-secondary w-100">Register</Link>
+              <Link to="/login" className="sidebar-auth-link">Login</Link>
+              <Link to="/register" className="sidebar-auth-link">Register</Link>
             </>
           )}
         </div>
       </div>
 
-      <button className="sidebar-toggle" onClick={toggleSidebar}>
-        <img src={menubar} alt="Menu" />
+      <button className="sidebar-toggle" onClick={toggleSidebar}
+        style={{
+          transform: isSidebarOpen ? 'rotate(135deg)' : 'rotate(45deg)',
+        }}
+      >
+        <FontAwesomeIcon 
+          icon={solidBars}
+          style={{
+            height: "30px",
+            color: "#000000"
+          }}
+        />
       </button>
     </>
   );

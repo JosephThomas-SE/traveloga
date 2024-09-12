@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword, sendEmailVerification } from 'firebase/auth'; // Import the signInWithEmailAndPassword function
 import { auth, realtimeDb } from '../../services/firebase'; // Import the auth instance
+import { getDatabase, ref, child, get } from "firebase/database";
 import { Form, Button, Alert, Spinner } from 'react-bootstrap';
 import './Auth.css';
 
@@ -27,28 +28,40 @@ const Login = () => {
       // Check if the email is verified
       if (user.emailVerified) {
         // Add user to the database with Temp_User role
-        const userRef = realtimeDb.ref(`/users/${user.uid}`);
-        userRef.once('value').then(snapshot => {
-          const userData = snapshot.val();
-          if (userData) {
-            if (userData.role === 'Host') {
-              alert("Please contact admin to become a host in Vagamon.");
-            } else {
-              alert(`Your role is: ${userData.role}`);
+        const userId = user.uid
+        const dbRef = ref(getDatabase());
+        get(child(dbRef, `users/${userId}`)).then((snapshot) => {
+          if (snapshot.exists()) {
+            console.log(snapshot.val());
+            //check for Host or User
+            const userData = snapshot.val();
+            if (userData) {
+              if (userData.role === 'Host') {
+                history('/host');
+                alert("Login as a HOST is successful! Welcome to Your HOST Page.");
+              } else {
+                history('/home');
+                alert("Login as a USER is successful! Welcome to Traveloga.");
+                alert(`Your role is: ${userData.role}`);
+              }
             }
+          } else {
+            console.log("No data available");
           }
+        }).catch((error) => {
+          console.error(error);
         });
         // Proceed with login
-        alert("Login successful! Welcome to Traveloga.");
+        
+        
       } else {
         // Custom alert for unverified email
         alert("Your email is not verified. Please click OK to verify your account.");
         // Optionally, you can resend the verification email
         await sendEmailVerification(user);
         alert("Verification email resent. Please check your inbox.");
+        history('/');
       }
-
-      history('/');
     } catch (error) {
       setError(error.message);
     } finally {

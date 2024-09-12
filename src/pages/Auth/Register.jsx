@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from 'firebase/auth';
 import { realtimeDb } from '../../services/firebase';
+import { ref, set } from "firebase/database"; // Import Firebase Realtime Database
 import { Form, Button, Alert, Spinner } from 'react-bootstrap';
 import './Auth.css';
 
@@ -16,6 +17,22 @@ const Register = () => {
 
   const auth = getAuth(); // Initialize Firebase Auth
   const navigate = useNavigate();
+
+
+  // Function to write user data to Firebase Realtime Database
+  function writeUserData(userId, name, email) {
+    set(ref(realtimeDb, 'users/' + userId), { // Write data to /users/userId path
+      username: name,
+      email: email,
+      role: 'Temp_User' // Assign role as Temp_User
+    })
+    .then(() => {
+      console.log('User data saved successfully!');
+    })
+    .catch((error) => {
+      console.error('Error writing user data: ', error);
+    });
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,13 +48,11 @@ const Register = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Add user to the database with Temp_User role
-      const userRef = realtimeDb.ref(`/users/${user.uid}`);
-      await userRef.set({
-        name: name,
-        email: email,
-        role: 'Temp_User',
-      });
+      // After successful registration, write the user data to the database
+      writeUserData(user.uid, name, email);
+
+      // Optionally, show a success message or redirect the user
+      alert("User registered successfully!");
 
       // Send verification email
       await sendEmailVerification(userCredential.user);
@@ -49,7 +64,7 @@ const Register = () => {
       });
 
       // Redirect to dashboard or wherever after registration
-      navigate('/login');
+      navigate('/home');
     } catch (error) {
       setError(error.message);
     } finally {

@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
+import logo from '../assets/images/flyer.png';
 import './Components.css';
+import { SidebarContext } from '../services/SidebarContext'; // Assuming you have this context
 
 const Home = () => {
+  const { isSidebarOpen } = useContext(SidebarContext); // Sidebar state
+
   return (
-    <div className="home-container">
+    <div className={`home-container ${isSidebarOpen ? 'sidebar-open' : ''}`}>
       <Container fluid>
+        <Row>
+          <Col>
+            <div className="sidebar-header">
+              <img src={logo} alt="Traveloga Logo" className="sidebar-logo" />
+              <h3 className="sidebar-title">TRAVELOGA</h3>
+            </div>
+          </Col>
+        </Row>
         <Row>
           <Col md={12} className="welcome-message">
             <h1>Welcome to TRAVELOGA</h1>
@@ -15,43 +27,19 @@ const Home = () => {
         </Row>
 
         <Row className="resort-list">
-          <h2>Featured Resorts</h2>
-          {/* Example resort cards, you can fetch and map over actual data */}
-          <Col md={4}>
-            <Card>
-              <Card.Img variant="top" src="/assets/resort1.jpg" alt="Resort 1" />
-              <Card.Body>
-                <Card.Title>Vagamon Hills Resort</Card.Title>
+        <Col md={4}>
+          <Card className="hover-card">
+            <Card.Img variant="top" src="/assets/images/hotel1.jpg" alt="Resort 1" />
+            <Card.Body>
+              <div className="card-content">
+                <Card.Title className="card-title">Vagamon Hills Resort</Card.Title>
                 <Card.Text>
                   Experience luxury and nature combined at the Vagamon Hills Resort.
                 </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-
-          <Col md={4}>
-            <Card>
-              <Card.Img variant="top" src="/assets/resort2.jpg" alt="Resort 2" />
-              <Card.Body>
-                <Card.Title>Mountain View Resort</Card.Title>
-                <Card.Text>
-                  Enjoy stunning mountain views and serene surroundings at the Mountain View Resort.
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-
-          <Col md={4}>
-            <Card>
-              <Card.Img variant="top" src="/assets/resort3.jpg" alt="Resort 3" />
-              <Card.Body>
-                <Card.Title>Lake Paradise Resort</Card.Title>
-                <Card.Text>
-                  Relax by the lake and soak in the natural beauty at Lake Paradise Resort.
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
         </Row>
       </Container>
     </div>
